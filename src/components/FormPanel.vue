@@ -10,8 +10,6 @@
 <script>
   import GetForm from '../../../libs/script/common';
   import Event from '../../../libs/event';
-  
-  
   export default {
     name: 'FormPanel',
     data() {
@@ -83,6 +81,8 @@
   box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 12px;
   box-sizing: border-box;
   overflow: auto;
+  font-size: 14px;
+  
 }
 
 </style>

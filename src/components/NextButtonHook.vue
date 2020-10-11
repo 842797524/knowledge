@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-button @click.ctrl="next" @click="showRecord" class="x-custom-next-button" icon="safety-certificate" title="按钮已被代理" type="primary">{{nextText}}
+    <a-button @click.ctrl="next" ref="button" @click="showRecord" class="x-custom-next-button" icon="safety-certificate" title="按钮已被代理" type="primary">{{nextText}}
     </a-button>
   </div>
 </template>
@@ -23,17 +23,21 @@
       'a-button': Button,
     },
     methods: {
-      next() {
-        const nextSelector = config.site[location.hostname].next;
+      next(e) {
+        //
+        let nextSelector = config.site[location.hostname].next;
         if (nextSelector) {
-          document.querySelector(nextSelector).click()
+          if ($(e.target).offsetParent().hasClass('x-custom-form-panel')) {
+            nextSelector = '.x-custom-form-panel ' + nextSelector;
+          }
+          document.querySelector(nextSelector).click();
+          this.event.dispatchEvent('clickNextPage', {});
         }else {
           message.info('没有找到下一步的按钮');
         }
       },
       showRecord() {
         message.info('成功的记录已被标红，请再次进行检查');
-        console.log('点击了下一页按钮', this.event);
         this.event.dispatchEvent('verifyData', {detail: {verify:true}});
       },
       setEvent(event) {
@@ -59,6 +63,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
   }
  
 </style>

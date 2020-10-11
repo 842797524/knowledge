@@ -115,6 +115,7 @@
     top: 100px;
     position: fixed !important;
     z-index: 9999999999;
+    font-size: 14px;
   }
   
   .x-custom-status {
